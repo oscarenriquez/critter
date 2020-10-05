@@ -1,52 +1,42 @@
+CREATE DATABASE IF NOT EXISTS critter;
+
 CREATE TABLE IF NOT EXISTS customer (
-    id BIGINT NOT NULL PRIMARY KEY,
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name NVARCHAR(100),
-    phoneNumber NVARCHAR(20),
+    phone_number NVARCHAR(20),
     notes NVARCHAR(200)
 );
 
 CREATE TABLE IF NOT EXISTS employee (
-    id BIGINT NOT NULL PRIMARY KEY,
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name NVARCHAR(100)
 );
 
 CREATE TABLE IF NOT EXISTS schedule (
-    id BIGINT NOT NULL PRIMARY KEY,
-    name DATE
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    date DATE
 );
 
 CREATE TABLE IF NOT EXISTS pet (
-    id BIGINT NOT NULL PRIMARY KEY,
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name NVARCHAR(100),
-    birthDate DATE,
+    birth_date DATE,
     notes NVARCHAR(200),
-    petType int,
+    pet_type int,
     customer_id BIGINT,
     foreign key (customer_id) references customer(id) on delete cascade
 );
 
-CREATE TABLE IF NOT EXISTS skill (
-    id BIGINT NOT NULL PRIMARY KEY,
-    name NVARCHAR(100)
-);
-
-CREATE TABLE IF NOT EXISTS dayOkWeek (
-    id BIGINT NOT NULL PRIMARY KEY,
-    name NVARCHAR(20)
-);
-
 CREATE TABLE IF NOT EXISTS employee_skill (
     employee_id BIGINT NOT NULL,
-    skill_id BIGINT NOT NULL,
-    foreign key (employee_id) references employee(id) on delete cascade,
-    foreign key (skill_id) references skill(id)
+    skill_name NVARCHAR(100) NOT NULL,
+    foreign key (employee_id) references employee(id) on delete cascade
 );
 
 CREATE TABLE IF NOT EXISTS employee_available (
     employee_id BIGINT NOT NULL,
-    dayOfWeek_id BIGINT NOT NULL,
-    foreign key (employee_id) references employee(id) on delete cascade,
-    foreign key (dayOfWeek_id) references dayOkWeek(id)
+    day_of_week_id INT NOT NULL,
+    foreign key (employee_id) references employee(id) on delete cascade
 );
 
 CREATE TABLE IF NOT EXISTS schedule_employee (
@@ -65,7 +55,6 @@ CREATE TABLE IF NOT EXISTS schedule_pet (
 
 CREATE TABLE IF NOT EXISTS schedule_activity (
     schedule_id BIGINT NOT NULL,
-    skill_id BIGINT NOT NULL,
-    foreign key (schedule_id) references schedule(id) on delete cascade,
-    foreign key (skill_id) references skill(id)
+    skill_name NVARCHAR(100) NOT NULL,
+    foreign key (schedule_id) references schedule(id) on delete cascade
 );

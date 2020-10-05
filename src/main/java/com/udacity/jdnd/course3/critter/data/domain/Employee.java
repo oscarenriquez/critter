@@ -1,29 +1,28 @@
 package com.udacity.jdnd.course3.critter.data.domain;
 
+import com.udacity.jdnd.course3.critter.user.EmployeeSkill;
+
 import javax.persistence.*;
 
+import java.time.DayOfWeek;
 import java.util.Set;
 import java.util.HashSet;
 
 @Entity
 public class Employee {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(length = 100)
     private String name;
-    @ManyToMany
-    @JoinTable(
-            name = "employee_skill",
-            joinColumns = @JoinColumn(name = "employee_id"),
-            inverseJoinColumns = @JoinColumn(name = "skill_id"))
-    private Set<Skill> skills;
+    @ElementCollection(targetClass = EmployeeSkill.class)
+    @JoinTable(name = "employee_skill", joinColumns = @JoinColumn(name = "employee_id"))
+    @Column(name = "skill_name", nullable = false)
+    private Set<EmployeeSkill> skills;
 
-    @ManyToMany
-    @JoinTable(
-            name = "employee_available",
-            joinColumns = @JoinColumn(name = "employee_id"),
-            inverseJoinColumns = @JoinColumn(name = "dayOfWeek_id"))
+    @ElementCollection(targetClass = DayOfWeek.class)
+    @JoinTable(name = "employee_available", joinColumns = @JoinColumn(name = "employee_id"))
+    @Column(name = "dayOfWeek_id", nullable = false)
     private Set<DayOfWeek> daysAvailable;
 
     public Employee(String name) {
@@ -41,15 +40,15 @@ public class Employee {
         this.name = name;
     }
 
-    public Set<Skill> getSkills() {
+    public Set<EmployeeSkill> getSkills() {
         return skills;
     }
 
-    public void setSkills(Set<Skill> skills) {
+    public void setSkills(Set<EmployeeSkill> skills) {
         this.skills = skills;
     }
 
-    public void addSkill(Skill skill) {
+    public void addSkill(EmployeeSkill skill) {
         if(skills == null) {
             skills = new HashSet<>();
         }
@@ -69,5 +68,13 @@ public class Employee {
             daysAvailable = new HashSet<>();
         }
         daysAvailable.add(dayOfWeek);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

@@ -9,7 +9,7 @@ import java.time.LocalDate;
 public class Pet {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(length = 100)
     private String name;
@@ -18,6 +18,7 @@ public class Pet {
     private String notes;
     private PetType petType;
     @OneToOne
+    @JoinColumn(name = "customer_id")
     private Customer customer;
 
     public Pet(String name, LocalDate birthDate, String notes, PetType petType, Customer customer) {

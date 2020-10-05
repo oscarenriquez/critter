@@ -1,20 +1,20 @@
 package com.udacity.jdnd.course3.critter.data.domain;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Customer {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(length = 100)
     private String name;
     private String phoneNumber;
     @Column(length = 200)
     private String notes;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "customer", cascade = CascadeType.ALL)
     private List<Pet> pets;
 
     public Customer(String name, String phoneNumber, String notes, List<Pet> pets) {

@@ -1,37 +1,39 @@
 package com.udacity.jdnd.course3.critter.data.domain;
 
-import javax.persistence.*;
+import com.udacity.jdnd.course3.critter.user.EmployeeSkill;
 
+import javax.persistence.*;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import java.util.ArrayList;
-import java.util.HashSet;
 
 @Entity
 public class Schedule {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDate date;
+
     @ManyToMany
     @JoinTable(
             name = "schedule_employee",
             joinColumns = @JoinColumn(name = "schedule_id"),
             inverseJoinColumns = @JoinColumn(name = "employee_id"))
     private List<Employee> employees;
+
     @ManyToMany
     @JoinTable(
             name = "schedule_pet",
             joinColumns = @JoinColumn(name = "schedule_id"),
             inverseJoinColumns = @JoinColumn(name = "pet_id"))
     private List<Pet> pets;
-    @ManyToMany
-    @JoinTable(
-            name = "schedule_activity",
-            joinColumns = @JoinColumn(name = "schedule_id"),
-            inverseJoinColumns = @JoinColumn(name = "skill_id"))
-    private Set<Skill> activities;
+
+    @ElementCollection(targetClass = DayOfWeek.class)
+    @JoinTable(name = "schedule_activity", joinColumns = @JoinColumn(name = "schedule_id"))
+    @Column(name = "skill_name", nullable = false)
+    private Set<EmployeeSkill> activities;
 
     public Schedule(LocalDate date) {
         this.date = date;
@@ -72,11 +74,11 @@ public class Schedule {
         this.pets = pets;
     }
 
-    public Set<Skill> getActivities() {
+    public Set<EmployeeSkill> getActivities() {
         return activities;
     }
 
-    public void setActivities(Set<Skill> activities) {
+    public void setActivities(Set<EmployeeSkill> activities) {
         this.activities = activities;
     }
 
@@ -92,12 +94,5 @@ public class Schedule {
             pets = new ArrayList<>();
         }
         pets.add(pet);
-    }
-
-    public void addActivity(Skill skill) {
-        if(activities == null) {
-            activities = new HashSet<>();
-        }
-        activities.add(skill);
     }
 }
