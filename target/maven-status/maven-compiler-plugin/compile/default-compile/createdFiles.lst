@@ -18,7 +18,6 @@ com/udacity/jdnd/course3/critter/user/UserController.class
 com/udacity/jdnd/course3/critter/data/repository/EmployeeRepository.class
 com/udacity/jdnd/course3/critter/data/domain/Employee.class
 com/udacity/jdnd/course3/critter/user/EmployeeRequestDTO.class
-com/udacity/jdnd/course3/critter/config/DataSourceConfig.class
 com/udacity/jdnd/course3/critter/CritterApplication.class
 com/udacity/jdnd/course3/critter/schedule/ScheduleController.class
 com/udacity/jdnd/course3/critter/pet/PetController.class

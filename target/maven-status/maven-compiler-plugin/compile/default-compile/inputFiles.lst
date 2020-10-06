@@ -15,7 +15,6 @@
 /Users/oenriquez/Workspace/udacity/java/critter/src/main/java/com/udacity/jdnd/course3/critter/user/EmployeeDTO.java
 /Users/oenriquez/Workspace/udacity/java/critter/src/main/java/com/udacity/jdnd/course3/critter/data/domain/Pet.java
 /Users/oenriquez/Workspace/udacity/java/critter/src/main/java/com/udacity/jdnd/course3/critter/CritterController.java
-/Users/oenriquez/Workspace/udacity/java/critter/src/main/java/com/udacity/jdnd/course3/critter/config/DataSourceConfig.java
 /Users/oenriquez/Workspace/udacity/java/critter/src/main/java/com/udacity/jdnd/course3/critter/user/EmployeeSkill.java
 /Users/oenriquez/Workspace/udacity/java/critter/src/main/java/com/udacity/jdnd/course3/critter/data/repository/PetRepository.java
 /Users/oenriquez/Workspace/udacity/java/critter/src/main/java/com/udacity/jdnd/course3/critter/pet/PetService.java
