@@ -5,9 +5,11 @@ import com.udacity.jdnd.course3.critter.data.domain.Pet;
 import com.udacity.jdnd.course3.critter.data.repository.PetRepository;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.*;
 
 @Service
+@Transactional
 public class PetService {
 
     private final PetRepository petRepository;

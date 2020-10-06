@@ -50,8 +50,11 @@ public class PetController {
     @GetMapping("/owner/{ownerId}")
     public List<PetDTO> getPetsByOwner(@PathVariable long ownerId) {
         Customer customer = userService.findCustomerById(ownerId);
-        return petService.findPetsByCustomerId(customer).stream().map(PetController::convertPet)
-                .collect(Collectors.toList());
+        if (customer != null) {
+            return petService.findPetsByCustomerId(customer).stream().map(PetController::convertPet)
+                    .collect(Collectors.toList());
+        }
+        return null;
     }
 
     private static PetDTO convertPet(Pet pet) {

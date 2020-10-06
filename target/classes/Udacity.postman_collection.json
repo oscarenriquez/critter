@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "3da4eeec-6238-471f-ab55-ce0d742fa76e",
+		"_postman_id": "5ce70e13-af53-4549-af0a-ec3e5ea98cb1",
 		"name": "Udacity",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -55,7 +55,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"type\": \"CAT\",\r\n  \"name\": \"Kilo\",\r\n  \"birthDate\": \"2019-12-16T04:43:57.995Z\",\r\n  \"notes\": \"HI KILO\"\r\n}",
+					"raw": "{\r\n  \"type\": \"CAT\",\r\n  \"name\": \"Kilo\",\r\n  \"birthDate\": \"2019-12-16T04:43:57.995Z\",\r\n  \"notes\": \"HI KILO\",\r\n  \"ownerId\": 1\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -63,15 +63,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8082/pet/1",
+					"raw": "http://localhost:8082/pet",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8082",
 					"path": [
-						"pet",
-						"1"
+						"pet"
 					]
 				}
 			},
@@ -192,8 +191,11 @@
 		},
 		{
 			"name": "Create Schedule",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
-				"method": "PUT",
+				"method": "GET",
 				"header": [
 					{
 						"key": "Content-Type",
@@ -292,7 +294,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8082/schedule/employee/2",
+					"raw": "http://localhost:8082/schedule/employee/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -301,7 +303,7 @@
 					"path": [
 						"schedule",
 						"employee",
-						"2"
+						"1"
 					]
 				}
 			},
@@ -332,7 +334,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8082/schedule/employee/2",
+					"raw": "http://localhost:8082/schedule/employee/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -341,7 +343,7 @@
 					"path": [
 						"schedule",
 						"employee",
-						"2"
+						"1"
 					]
 				}
 			},

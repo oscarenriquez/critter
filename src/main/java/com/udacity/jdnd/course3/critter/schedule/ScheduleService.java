@@ -8,9 +8,11 @@ import com.udacity.jdnd.course3.critter.data.repository.PetRepository;
 import com.udacity.jdnd.course3.critter.data.repository.ScheduleRepository;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.*;
 
 @Service
+@Transactional
 public class ScheduleService {
 
     private final ScheduleRepository scheduleRepository;
