@@ -3,11 +3,6 @@ package com.udacity.jdnd.course3.critter.pet;
 import com.udacity.jdnd.course3.critter.data.domain.Customer;
 import com.udacity.jdnd.course3.critter.data.domain.Pet;
 import com.udacity.jdnd.course3.critter.user.UserService;
-import ma.glasnost.orika.CustomMapper;
-import ma.glasnost.orika.MapperFacade;
-import ma.glasnost.orika.MapperFactory;
-import ma.glasnost.orika.MappingContext;
-import ma.glasnost.orika.impl.DefaultMapperFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,11 +18,6 @@ public class PetController {
 
     private final PetService petService;
     private final UserService userService;
-    private static final MapperFactory mapperFactory;
-
-    static {
-        mapperFactory = new DefaultMapperFactory.Builder().build();
-    }
 
     public PetController(PetService petService, UserService userService) {
         this.petService = petService;
@@ -38,6 +28,7 @@ public class PetController {
     public PetDTO savePet(@RequestBody PetDTO petDTO) {
         Pet pet = new Pet();
         BeanUtils.copyProperties(petDTO, pet);
+        pet.setPetType(petDTO.getType());
         Customer customer = userService.findCustomerById(petDTO.getOwnerId());
         if (customer != null) {
             pet.setCustomer(customer);
@@ -64,14 +55,15 @@ public class PetController {
     }
 
     private static PetDTO convertPet(Pet pet) {
-        mapperFactory.classMap(Pet.class, PetDTO.class).customize(new CustomMapper<Pet, PetDTO>() {
-            @Override
-            public void mapAtoB(Pet pet, PetDTO petDTO, MappingContext context) {
-                petDTO.setOwnerId(pet.getCustomer().getId());
-            }
-        }).byDefault().register();
-
-        MapperFacade mapperFacade = mapperFactory.getMapperFacade();
-        return mapperFacade.map(pet, PetDTO.class);
+        PetDTO petDTO = new PetDTO();
+        petDTO.setId(pet.getId());
+        petDTO.setName(pet.getName());
+        petDTO.setBirthDate(pet.getBirthDate());
+        petDTO.setNotes(pet.getNotes());
+        petDTO.setType(pet.getPetType());
+        if (pet.getCustomer() != null) {
+            petDTO.setOwnerId(pet.getCustomer().getId());
+        }
+        return petDTO;
     }
 }

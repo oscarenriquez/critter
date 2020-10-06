@@ -48,7 +48,7 @@ public class UserController {
         BeanUtils.copyProperties(customerDTO, customer);
 
         addPets(customerDTO.getPetIds(), customer);
-        
+
         return convertCustomer(userService.saveCustomer(customer));
     }
 
@@ -83,6 +83,7 @@ public class UserController {
     public void setAvailability(@RequestBody Set<DayOfWeek> daysAvailable, @PathVariable long employeeId) {
         Employee employee = userService.findEmployeeById(employeeId);
         addAvailability(daysAvailable, employee);
+        userService.saveEmployee(employee);
     }
 
     @GetMapping("/employee/availability")
